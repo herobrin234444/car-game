@@ -4,6 +4,10 @@ var jcount;
 var estadodejogo;
 var carimg1,carimg2,pistaimg;
 var car1,car2,allplayers,cars = [];
+var fuels,powerCoins,obstacles;
+var fuelimg,coinsimg,obstacleimg1,obstacleimg2;
+var lifeImage;
+var blastimg;
 
 function preload() {
   bgimg = loadImage("assets/planodefundo.png");
@@ -12,7 +16,14 @@ function preload() {
   carimg2 = loadImage("assets/car2.png");
   pistaimg = loadImage("assets/PISTA.png");
 
+  fuelimg = loadImage("assets/fuel.png");
+  coinsimg = loadImage("assets/goldCoin.png");
+  obstacleimg1 = loadImage("assets/obstacle1.png");
+  obstacleimg2 = loadImage("assets/obstacle2.png");
 
+  lifeImage = loadImage("assets/life.png");
+
+  blastimg = loadImage("assets/blast.png");
 }
 
 function setup() {
@@ -36,6 +47,10 @@ function draw() {
   }
   if(estadodejogo ===1){
     game.play()
+  }
+  if(estadodejogo ===2){
+    game.showLeaderboard();
+    game.end();
   }
 }
 

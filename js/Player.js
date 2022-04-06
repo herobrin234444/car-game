@@ -1,9 +1,13 @@
 class Player {
     constructor(){
-    this.nome= null;
+    this.name= null;
     this.index = null;
-    this.posx = 0
-    this.posy = 0    
+    this.posx = 0;
+    this.posy = 0;
+    this.rank = 0;
+    this.score = 0;
+    this.fuel =185;
+    this.life = 185;
     };
     
     addPlayer(){
@@ -18,7 +22,8 @@ class Player {
         }
         
         database.ref(playerIndex).set({
-            name:this.name,posx:this.posx,posy:this.posy
+            name:this.name,posx:this.posx,posy:this.posy,
+            rank:this.rank,score:this.score
         })
         
     }
@@ -46,18 +51,33 @@ class Player {
     update(){
         var playerIndex ="jogadores/jogador" + this.index;
         database.ref(playerIndex).update({
-            posx:this.posx,posy:this.posy
+            posx:this.posx,
+            posy:this.posy,
+            rank:this.rank,
+            score:this.score,
+            life:this.life
         })
     }
 
     readDistance(){
         var distanceref = database.ref("jogadores/jogador"+this.index);
-        distanceref.on("value",function(data){
+        distanceref.on("value",data=>{
             var dado = data.val();
             this.posx = dado.posx;
             this.posy =  dado.posy;
         })
     }
 
+    lercarsAtEnd(){
+    database.ref("carsAtEnd").on("value",data=>{
+        this.rank = data.val();
+    });
+    }
     
+    static updatecarsAtEnd(rank){
+        database.ref("/").update({
+            carsAtEnd:rank
+        })
+    }
+
 }
